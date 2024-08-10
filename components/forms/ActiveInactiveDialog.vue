@@ -1,0 +1,45 @@
+<template>
+  <v-switch
+    v-model="status"
+    color="primary"
+    class="text-capitalize"
+    :label="label"
+    v-bind="$attrs"
+    v-on="$listeners"
+  />
+</template>
+
+<script>
+export default {
+  name: 'ActiveInactiveDialog',
+  props: {
+    value: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data: () => ({
+    status: true,
+  }),
+  computed: {
+    label() {
+      return this.status ? 'Active': 'Inactive'
+    }
+  },
+  watch: {
+    // Handles internal model changes.
+    status(newVal) {
+      this.$emit('input', newVal);
+    },
+    // Handles external model changes.
+    value(newVal) {
+      this.status = newVal;
+    },
+  },
+  created() {
+    if (this.value) {
+      this.status = this.value;
+    }
+  },
+};
+</script>
